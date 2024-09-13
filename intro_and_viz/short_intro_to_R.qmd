@@ -1,0 +1,179 @@
+---
+title: "A Very Short Introduction to R"
+format: html
+date: today
+editor: visual
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code.
+
+## Outline
+
+-   Basics
+    -   Loading packages
+    -   Working directory
+    -   Environment
+    -   Information on objects
+-   Data types
+    -   `numeric`
+    -   `integer`
+    -   `character`
+    -   `logical`
+    -   `complex`
+-   Data structures
+    -   `vector`
+    -   `factor`
+    -   `array` and `matrix`
+        -   indexing
+        -   `cbind` and `rbind`
+    -   `data.frame`
+    -   `list`
+-   `apply` functions
+-   Read a file
+-   Load RData
+-   Other useful commands
+    -   `sort`
+    -   `order`
+    -   `as.matrix`
+    -   `as.data.frame`
+    -   `rep`
+    -   `seq`
+
+## Basics
+
+To load a package you can use `library(<package name>)`.
+
+```{r}
+library(ggplot2)
+```
+
+To check which directory you are in, use the function `getwd` (you can also set the working directory with `setwd(<some dir path>)`).
+
+```{r}
+getwd()
+```
+
+List all variables in the current environment (or use the Environment panel in RStudio).
+
+```{r}
+x <- "Arrr"
+ls()
+```
+
+Get structure and info about an object.
+
+```{r}
+# The iris dataset is part of base R
+str(iris)
+```
+
+Get the class of an object.
+
+```{r}
+class(x)
+
+class(iris)
+```
+
+Remove a variable.
+
+```{r}
+rm(x)
+```
+
+## Data Types
+
+```{r}
+# numeric
+3.14
+
+# integer
+2L
+
+# complex
+7 + 2i
+
+# character or string
+"Ahoy world!"
+
+# logical or boolean
+TRUE
+```
+
+## Data Structures
+
+Use `c()` to define a vector. Even the number `1` is a vector (equivalent to `c(1)`). `c` stands for "combine".
+
+```{r}
+v <- c(4,2,3,8,2,2,5)
+v
+```
+
+To get more info on data and data structure, use `is()`.
+
+```{r}
+is(v)
+```
+
+Throw in `NA` values into a vector.
+
+```{r}
+v <- c(4,2,3,8,2,NA,5)
+v
+```
+
+Reassigning a value in our vector.
+
+```{r}
+v[4] = 10
+v
+```
+
+Indexing with multiple values.
+
+```{r}
+v[1:3]
+```
+
+Indexing a vector with another vector.
+
+```{r}
+v[-c(1,5,8)]
+```
+
+Using a logical operator on a vector.
+
+```{r}
+v < 4
+```
+
+Subsetting based on a logical vector.
+
+```{r}
+v[v<4]
+```
+
+A character vector.
+
+```{r}
+v <- c("a","b","c","d","e")
+v
+```
+
+## Help
+
+Here are some ways to get help.
+
+```{r}
+# Help docs
+?max
+```
+
+```{r}
+# Any docs associated with the given input, here "summary"
+??"summary"
+```

@@ -1,0 +1,59 @@
+---
+title: "Data Visualization Perception"
+format: pptx
+date: today
+editor: visual
+knitr:
+  opts_chunk:
+    out.dpi: 300
+    out.width: 7
+---
+
+```{r}
+# install.packages(c("tidyverse", "gridExtra", "palmerpenguins"))
+```
+
+```{r load-packages, echo=FALSE}
+# Load packages
+library(tidyverse)
+library(gridExtra)
+library(palmerpenguins)
+data(package = 'palmerpenguins')
+```
+
+```{r prep-data-1, echo=FALSE}
+# Get only one species of penguin of the 3
+data = penguins[(penguins$species == 'Chinstrap'),]
+
+# Save last entry and remove for this experiment
+save_entry = data[nrow(data),]
+data = data[1:nrow(data)-1,]
+
+# Create new column and populate with same value (blue)
+data$color = replicate(nrow(data), 'blue')
+
+# Give the saved sample the "color" orange
+save_entry$color = 'orange'
+
+# Assign an additional row to the sample
+data[nrow(data) + 1,] = save_entry
+
+# Check current data
+tail(data)
+dim(data)
+```
+
+```{r shapes-vs-colors, echo=FALSE}
+# Plot #1 with ggplot2 that uses different shapes
+plot1 = ggplot(data, aes(x=bill_length_mm, y=bill_depth_mm, shape=color)) +
+  labs(x = "Bill length (mm)", y = "Bill depth (mm)", title = "Pop-Out on Shape Channel") +
+  geom_point(size=3, aes(colour='orange'), show.legend = FALSE)
+
+# Plot #2 with ggplot2 that uses colors
+plot2 = ggplot(data, aes(x=bill_length_mm, y=bill_depth_mm, color=color)) +
+  labs(x = "Bill length (mm)", y = "Bill depth (mm)", title = "Pop-Out on Color Channel") +
+  geom_point(size=3, show.legend = FALSE)
+
+# Create graphic with two plots side-by-side
+grid.arrange(plot1, plot2, ncol = 2)
+```
