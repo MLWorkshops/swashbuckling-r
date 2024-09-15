@@ -1,13 +1,15 @@
 ---
-title: "A Very Short Introduction to R"
+title: "A Short Introduction to R"
 format: html
 date: today
 editor: visual
 ---
 
-## Quarto
+## Introduction
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+This is an introduction to R meant to help anyone new to the language gain familiarity with data types, data structures, the apply functions and reading data.  It is not comprehensive, but should serve as a nice reference moving forward.
+
+This is a Quarto-based document. Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
 
 When you click the **Render** button a document will be generated that includes both content and the output of embedded code.
 
@@ -21,27 +23,18 @@ When you click the **Render** button a document will be generated that includes 
 -   Data types
     -   `numeric`
     -   `integer`
+    -   `complex`
     -   `character`
     -   `logical`
-    -   `complex`
 -   Data structures
     -   `vector`
     -   `factor`
     -   `array` and `matrix`
-        -   indexing
-        -   `cbind` and `rbind`
+    -   `cbind` and `rbind`
     -   `data.frame`
     -   `list`
 -   `apply` functions
 -   Read a file
--   Load RData
--   Other useful commands
-    -   `sort`
-    -   `order`
-    -   `as.matrix`
-    -   `as.data.frame`
-    -   `rep`
-    -   `seq`
 
 ## Basics
 
@@ -106,6 +99,8 @@ TRUE
 
 ## Data Structures
 
+### Vectors
+
 Use `c()` to define a vector. Even the number `1` is a vector (equivalent to `c(1)`). `c` stands for "combine".
 
 ```{r}
@@ -160,8 +155,225 @@ v[v<4]
 A character vector.
 
 ```{r}
-v <- c("a","b","c","d","e")
+v <- c("aye","nay","nay","aye","aye")
 v
+```
+
+### Factors
+
+Factors are how we can define groupings in data. For example, we can define two groups "happy pirate" and "sad pirate". It's simple to convert a character vector into a factor with the `factor` function.
+
+```{r}
+groupings = c("happy_pirate",
+              "happy_pirate",
+              "sad_pirate",
+              "happy_pirate",
+              "sad_pirate",
+              "sad_pirate",
+              "happy_pirate")
+
+pirate.factor = factor(groupings)
+
+pirate.factor
+```
+
+Just get the levels.
+
+```{r}
+levels(pirate.factor)
+```
+
+Get the counts.
+
+```{r}
+table(pirate.factor)
+```
+
+Create a dataset of "coins". Use the groupings to apply the `mean` function with `tapply`. We will cover `tapply` later. You can see now that factors are helpful when you have distinct groups and you would like to apply a function based on group assignments.
+
+```{r}
+coins = c(21,39,19,16,7,8,25)
+
+tapply(coins, groupings, mean)
+```
+
+### Arrays and matrices
+
+An array is an N-dimensional series of data entries of all the same type. A matrix is a special case of an array that is 2-dimensional.
+
+```{r}
+# 1D array
+arr1 = array(c(1,2,3), dim=c(3))
+arr1
+
+# 2D array
+arr2 = array(c(1,2,3,4,5,6,7,8), dim=c(2,4))
+arr2
+
+# The equivalent matrix for the 2D array above
+mat = matrix(c(1,2,3,4,5,6,7,8),
+             nrow=2,
+             ncol=4)
+mat
+
+# A third way to create the same data structure
+x = c(1,2,3,4,5,6,7,8)
+dim(x) = c(2,4)
+x
+```
+
+Indexing.
+
+```{r}
+# First row
+mat[c(1),]
+```
+
+```{r}
+# Second and fourth column
+mat[,c(2,4)]
+```
+
+Indexing with a logical vector.
+
+```{r}
+# Second row
+mat[c(FALSE,TRUE),]
+```
+
+#### Binding rows and columns
+
+Use `cbind` to add a column of the same dimension as other columns. Use `rbind` to do the same for rows.
+
+```{r}
+# A matrix
+mat = matrix(c(1,2,3,4,5,6,7,8),
+             nrow=2,
+             ncol=4)
+
+mat2 = cbind(mat, c(9,10))
+mat2
+
+mat3 = rbind(mat, c(9,10,11,12))
+mat3
+```
+
+### Dataframes
+
+As a data structure, a data frame can contain multiple types of data. Let's create some data.
+
+```{r}
+# Create vectors of values for our sharks
+tailfin.length<-c(3.5,3.0,3.2,3.2,3.3,2.7)
+tailfin.width<-c(5.1,4.9,7.0,6.4,6.3,5.8)
+
+# Create a vector of shark species (reasons not to walk the plank, matey!)
+species = c("GreatWhite",
+            "GreatWhite",
+            "Bull",
+            "Bull",
+            "Tiger",
+            "Tiger")
+```
+
+Create a data frame from our penguin data.
+
+```{r}
+shark.df = data.frame(tailfin.length, tailfin.width, species)
+table(shark.df$species)
+```
+
+Slicing is the same as with a matrix.
+
+```{r}
+# Which dimension is this, matey?
+shark.df[,2]
+```
+
+Quick summary of the dataset.
+
+```{r}
+summary(shark.df)
+```
+
+Assign some row names.
+
+```{r}
+rownames(shark.df) = c("p1","p2","p3","p4","p5","p6")
+shark.df
+```
+
+### Lists
+
+A list is a collection of objects. It can contain vectors, matrices, dataframes, and other objects of different lengths. It can be a great way to collect together different information. Use double square brackets, `[[]]`, to access elements or you can also use the name of the element if it exists (using the `$` to access).
+
+```{r}
+# Create a list
+sharkfin_list = list(tailfin.width, tailfin.length, c("GreatWhite", "Bull", "Tiger"))
+sharkfin_list
+```
+
+The following is the same list, but with names assigned to the elements.
+
+```{r}
+# Create a list
+sharkfin_list = list(width=tailfin.width,
+                     length=tailfin.length,
+                     species=c("GreatWhite", "Bull", "Tiger"),
+                     numberOfBites=15)
+
+# Access with [[]]
+sharkfin_list[[2]]
+
+# Access with $
+sharkfin_list$length
+```
+
+## Apply function family
+
+The functions `apply()`, `tapply()` and `lapply()` allow you to perform a specified functions across array objects.
+
+-   `apply()` – first provide the array then whether to apply the function by row (1), column (2) or both (c(1,2)), finally the function.
+-   `tapply()` – similar to apply but pass a factor vector instead of row or column
+-   `lapply()` – simply provide a list and the function to apply to each vector in the list. Result is a list.
+-   `sapply()` – same as `lapply()` but returns result in original data structure
+
+```{r}
+# A matrix
+mat = matrix(sample(20:160, 20, replace=T)/10,
+             ncol=4,
+             nrow=5)
+
+# Let's get the row means
+apply(mat, 1, mean)
+```
+
+```{r}
+# Make into a data frame
+df = as.data.frame(mat)
+groupings = c("happy_pirate", "happy_pirate", "sad_pirate", "sad_pirate")
+
+# Get the mean for the first row by the groups
+tapply(as.numeric(df[1,]), groupings, mean)
+```
+
+I will leave `lapply()` and `sapply()` for you to learn more about on your own.
+
+## Reading in data
+
+Read a csv file.
+
+```{r}
+# Read data file with a header
+pirate_data = read.csv("data/pirate_data1.csv",
+  header=T,
+  sep = ",")
+```
+
+What class of object is this?
+
+```{r}
+class(pirate_data)
 ```
 
 ## Help

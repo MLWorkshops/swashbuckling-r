@@ -1,6 +1,8 @@
 ---
-title: "Data Visualization Perception"
+title: "Data Visualization and Perception"
 format: pptx
+execute:
+  echo: false
 date: today
 editor: visual
 knitr:
@@ -9,22 +11,110 @@ knitr:
     out.width: 7
 ---
 
-```{r}
-# install.packages(c("tidyverse", "gridExtra", "palmerpenguins"))
-```
-
 ```{r load-packages, echo=FALSE}
 # Load packages
 library(tidyverse)
 library(gridExtra)
-library(palmerpenguins)
-data(package = 'palmerpenguins')
+library(ggplot2)
 ```
 
-```{r prep-data-1, echo=FALSE}
-# Get only one species of penguin of the 3
-data = penguins[(penguins$species == 'Chinstrap'),]
+## Introduction
 
+Ahoy matey and welcome to a brief introduction to data viz and perception using one of the most famous packages in R, `ggplot2` (now part of the `tidyverse` package).
+
+For reference, here is a nice `ggplot2` cheatsheet from the makers of the package: <https://rstudio.github.io/cheatsheets/data-visualization.pdf>. Here are the docs: <https://ggplot2.tidyverse.org/>.
+
+## Edges
+
+Let's read in some data.
+
+```{r}
+# Read data file
+pirate_data = read.csv("data/pirate_data1.csv",
+  header=T,
+  sep = ",")
+```
+
+We are attracted to edges in visual media, seeing contrasts and brightness relatively rather than in the absolute. Thus background choices matter - the same color or shade will be perceived differently against a darker background vs. a ligher one. Here we, plot the points against a light grey and dark grey background.
+
+```{r}
+# Use a light grey background
+ggplot(pirate_data,
+  mapping=aes(x=x, y=y)) +
+  geom_point(size=2) +
+  theme(panel.background = element_rect(fill = 'lightgrey'))
+
+# Use a dark grey background
+ggplot(pirate_data,
+  mapping=aes(x=x, y=y)) +
+  geom_point(size=2) +
+  theme(panel.background = element_rect(fill = "#36454F"))
+```
+
+Introducing colors vs. monochrome may complicate a graph and make it harder to perceive structures.
+
+```{r}
+z = replicate(1, sample(c("black"), dim(pirate_data)[[1]], TRUE))
+pirate_data$z = z
+
+ggplot(pirate_data,
+  mapping=aes(x=x, y=y)) +
+  geom_point(size=2, colour=z) +
+  theme_bw()
+
+z = replicate(1, sample(c("blue", "orange", "red", "black", "yellow"), dim(pirate_data)[[1]], TRUE))
+pirate_data$z = z
+
+ggplot(pirate_data,
+  mapping=aes(x=x, y=y)) +
+  geom_point(size=2, colour=z) +
+  theme_bw()
+```
+
+## Pop-out
+
+A phenomenon called pop-out makes elements in a graph easier to see or find based on channels used, where a channel could be the shape channel, color channel, size channel, etc. Take care with your choice of channel for representing data as some have stronger perception than others.
+
+Let's read in some more data.
+
+```{r}
+# Read data file
+pirate_data = read.csv("data/pirate_data2.csv",
+  header=T,
+  sep = ",")
+```
+
+Now for a little bit of fun.
+
+```{r}
+# Simple plot with defaults
+p1 = ggplot(pirate_data, aes(x=x, y=y)) +
+  geom_point()
+
+# Create a color vector
+z = replicate(nrow(pirate_data), "black")
+z[pirate_data$y < 300] = "brown"
+
+# Adding point size, color and labels
+p2 = ggplot(pirate_data, aes(x=x, y=y)) +
+  geom_point(size=1, colour=z, show.legend = FALSE) +
+  labs(x = "X", y = "Y", title = "Set Sail in Color") + 
+  theme_bw()
+
+# Create graphic with two plots side-by-side
+grid.arrange(p1, p2, ncol = 2)
+```
+
+Subsample the data because it's really dense.
+
+```{r}
+dim(pirate_data)
+data = pirate_data[sample(nrow(pirate_data), 100), ]
+```
+
+Fiddle with the data to get one different point.
+
+```{r}
 # Save last entry and remove for this experiment
 save_entry = data[nrow(data),]
 data = data[1:nrow(data)-1,]
@@ -37,23 +127,70 @@ save_entry$color = 'orange'
 
 # Assign an additional row to the sample
 data[nrow(data) + 1,] = save_entry
-
-# Check current data
-tail(data)
-dim(data)
 ```
 
-```{r shapes-vs-colors, echo=FALSE}
+Plot two plots on one grid. Which two channels are represented below and which one is stronger?
+
+```{r, echo=FALSE}
 # Plot #1 with ggplot2 that uses different shapes
-plot1 = ggplot(data, aes(x=bill_length_mm, y=bill_depth_mm, shape=color)) +
-  labs(x = "Bill length (mm)", y = "Bill depth (mm)", title = "Pop-Out on Shape Channel") +
+plot1 = ggplot(data, aes(x=x, y=y, shape=color)) +
+  labs(x = "X", y = "Y", title = "Pop-Out on Shape Channel") + 
   geom_point(size=3, aes(colour='orange'), show.legend = FALSE)
 
 # Plot #2 with ggplot2 that uses colors
-plot2 = ggplot(data, aes(x=bill_length_mm, y=bill_depth_mm, color=color)) +
-  labs(x = "Bill length (mm)", y = "Bill depth (mm)", title = "Pop-Out on Color Channel") +
+plot2 = ggplot(data, aes(x=x, y=y, color=color)) +
+  labs(x = "X", y = "Y", title = "Pop-Out on Color Channel") + 
   geom_point(size=3, show.legend = FALSE)
 
 # Create graphic with two plots side-by-side
 grid.arrange(plot1, plot2, ncol = 2)
 ```
+
+## Interpreting sizes as values
+
+Let's see why pie charts are so infamous...
+
+```{r}
+# Create Data
+data <- data.frame(
+  group=LETTERS[1:5],
+  value=c(13,7,9,21,2)
+)
+
+# Also have groups as row names for referencing later on
+rownames(data) = LETTERS[1:5]
+
+# Basic piechart without value labels
+ggplot(data, aes(x="", y=value, fill=rownames(data))) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0) +
+  theme(axis.text = element_blank()) +
+  scale_fill_grey()
+```
+
+From the above pie chart, what would you say the relative size is of group D (biggest slice)? How about group E (smallest slice)? What is the ratio of group E to group A?
+
+```{r}
+# Get the relative sizes or percents
+data$perc = data$value / sum(data$value) * 100
+data
+
+# How off were you?
+
+# Get the ratio of E to A
+data["E", "value"] / data["A", "value"]
+```
+
+Is it any easier if the graph is a regular bar chart?
+
+```{r}
+ggplot(data, aes(x=group, y=value, fill=group)) +
+  geom_bar(stat="identity", width=1) +
+  theme(axis.text = element_blank()) +
+  scale_fill_grey() +
+  theme_bw() +
+  theme(axis.text.y = element_blank(),
+        panel.grid = element_blank())
+```
+
+Thanks for listening, matey!
