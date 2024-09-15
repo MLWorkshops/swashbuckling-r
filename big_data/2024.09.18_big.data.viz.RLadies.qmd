@@ -6,13 +6,17 @@ format:
   html:
     toc: true
     self-contained: true
+    include-in-header:
+      - file: github-corner.html
+    code-link: true
+    theme: pulse
   pdf:
     toc: true
 editor_options:
   chunk_output_type: console
 ---
 
-# Introduction
+# Introduction 
 
 In this workshop, we present several methods for improving data visualizations of large data sets. The example data come from human RNA sequencing, but the methods presented are data agnostic and applicable in many fields! If you want to learn more about RNA sequencing data analysis or see some other fun workshops, checkout Kim's work at <https://bigslu.github.io/workshops/>
 
@@ -83,6 +87,8 @@ dat[1:4,1:5]
 * Each gene is a column with `r format(ncol(dat)-3, scientific=FALSE)` genes
   * Gene expression is measured in log2 counts per million
 
+*** 
+
 # Challenge 1: Too many colors!
 
 Here, we compare the expression of two genes within patients. Even with only 10 unique patients, the colors are difficult to read and definitely not colorblind accessible. We could try to find a better palette, but there are also better ways to display these data!
@@ -134,6 +140,8 @@ ggplot(data = dat) +
 
 Thus, when faced with too many colors, consider how you can move the color variable to another layer like facets, labels, shape, size, etc. This will make that variable more interpretable as well as may allow you to use color for another informative variable with fewer levels.
 
+***
+
 # Challenge 2: Too many dots!
 
 Now let's compare the expression of interleukin (IL) genes in media and infected samples. There are `r length(colnames(dat)[grepl("^IL", colnames(dat))])` IL genes and `r length(unique(dat$ptID))` samples per condition. Thus, we have `r length(colnames(dat)[grepl("^IL", colnames(dat))])*length(unique(dat$ptID))` data points per condition. When we plot this, it's basically just a smear of points. Not very helpful right?
@@ -170,6 +178,8 @@ ggplot(data = dat_IL) +
   theme_bw()
 ```
 
+:::{.callout-warning}
+
 #### Help! Why doesn't my plot look exactly like yours?
 
 Jittering uses a random seed to determine where points fall. Every time you run a jitter, the plot will look slightly different. To prevent this, you can set the seed prior to plotting.
@@ -177,6 +187,8 @@ Jittering uses a random seed to determine where points fall. Every time you run 
 ```{r}
 set.seed(42)
 ```
+
+:::
 
 ## Solution 1B: Bee-swarm
 
@@ -228,6 +240,8 @@ And more!
 ## Challenge 2 summary
 
 When you have a lot of individual data points, you can minimize overlaps with jitter or bee-swarm methods. Also, consider if you actually need to see every data point and if not, use a summary plot type instead!
+
+***
 
 # Challenge 3: Too many variables!
 
@@ -293,6 +307,7 @@ for(i in 1:ncol(gene_pairs)){
 wrap_plots(plot_ls) + plot_layout(guides = "collect")
 ```
 
+:::{.callout-warning}
 #### Help! I got a warning about unlabeled points
 
 ```
@@ -307,13 +322,20 @@ You might get a warning that 1 or more data points are unlabeled. This is becaus
 geom_text_repel(aes(label = ptID, max.overlaps = Inf))
 ```
 
+:::
+
 ## Challenge 3 summary
 
 When you want to make a lot of comparisons, first consider if you're interested in all pairs or just a subset. When interested in all pairs, `GGally` can quickly make your plot. When interested in a select set (or `GGally` isn't customizable enough), consider using a loop to plot only what you need. A general rule when working with plot loops is to make a single plot first to ensure it looks how you want. Then modify that code to work in a loop.
 
+***
+
 # R session
+
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" >Click for session info</button><div id="collapseOne" class="accordion-collapse collapse"><div>
 
 ```{r}
 sessionInfo()
 ```
 
+</div></div>
