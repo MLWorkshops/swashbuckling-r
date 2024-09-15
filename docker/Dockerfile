@@ -29,7 +29,9 @@ RUN apt-get clean all && \
 
 RUN Rscript -e "install.packages(c('rmarkdown', 'tidyverse', 'workflowr', 'devtools'));"
 RUN Rscript -e "install.packages(c('doParallel', 'foreach', 'Rdpack'));"
+RUN Rscript -e "install.packages(c('ggrepel', 'ggbeeswarm', 'GGally', 'patchwork');"
 RUN Rscript -e "install.packages('BiocManager');"
 RUN Rscript -e "BiocManager::install(version = '${bioc_ver}');"
+RUN Rscript -e "BiocManager::install('limma');"
 
 WORKDIR /home/rstudio
