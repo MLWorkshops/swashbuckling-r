@@ -1,7 +1,12 @@
 ---
 title: "A Short Introduction to R"
-format: html
+author: "Micheleen"
 date: today
+format:
+  html:
+    toc: true
+    self-contained: true
+  pdf:
 editor: visual
 ---
 
@@ -286,7 +291,7 @@ mat3
 ```
 
 ::: callout-warning
-# Beware data order with `cbind` and `rbind`
+# Beware data order
 
 Note that `cbind` and `rbind` do not check your data order. If you have one matrix with columns A, B and one with B, A, `rbind` will incorrectly paste the data from the first columns together and label it A, even though the second matrix's first column is data for B. See the `tidyverse` for binding functions that automatically correct ordering based on row and column names, <https://dplyr.tidyverse.org/reference/bind.html>
 
