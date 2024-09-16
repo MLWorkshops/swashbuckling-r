@@ -11,6 +11,9 @@ format:
 editor: visual
 ---
 
+
+
+
 ## Introduction
 
 This is an introduction to R meant to help anyone new to the language gain familiarity with data types, data structures, the apply functions and reading data. It is not comprehensive, but should serve as a nice reference moving forward.
@@ -46,31 +49,58 @@ When you click the **Render** button a document will be generated that includes 
 
 To load a package you can use `library(<package name>)`.
 
+
+
+
 ```{r}
 library(ggplot2)
 ```
 
+
+
+
 To check which directory you are in, use the function `getwd` for "get working directory" (you can also set the working directory with `setwd(<some dir path>)`).
+
+
+
 
 ```{r}
 getwd()
 ```
 
+
+
+
 List all variables in the current environment (or use the Environment panel in RStudio).
+
+
+
 
 ```{r}
 x <- "Arrr"
 ls()
 ```
 
+
+
+
 Get structure and info about an object.
+
+
+
 
 ```{r}
 # The iris dataset is part of base R
 str(iris)
 ```
 
+
+
+
 Get the class of an object.
+
+
+
 
 ```{r}
 class(x)
@@ -78,13 +108,25 @@ class(x)
 class(iris)
 ```
 
+
+
+
 Remove a variable.
+
+
+
 
 ```{r}
 rm(x)
 ```
 
+
+
+
 ## Data Types
+
+
+
 
 ```{r}
 # numeric
@@ -103,12 +145,21 @@ rm(x)
 TRUE
 ```
 
+
+
+
 If you don't know your data type, you can query it with `class()`.
+
+
+
 
 ```{r}
 class(3.14)
 class("Ahoy world!")
 ```
+
+
+
 
 ## Data Structures
 
@@ -116,31 +167,55 @@ class("Ahoy world!")
 
 Use `c()` to define a vector. Even the number `1` is a vector (equivalent to `c(1)`). `c` stands for "combine".
 
+
+
+
 ```{r}
 v <- c(4,2,3,8,2,2,5)
 v
 ```
 
+
+
+
 To get more info on data and data structure, use `is()` instead of `class()`
+
+
+
 
 ```{r}
 class(v)
 is(v)
 ```
 
+
+
+
 Throw in `NA` values into a vector.
+
+
+
 
 ```{r}
 v <- c(4,2,3,8,2,NA,5)
 v
 ```
 
+
+
+
 Reassigning a value in our vector.
+
+
+
 
 ```{r}
 v[4] = 10
 v
 ```
+
+
+
 
 ::: callout-warning
 # Python users!
@@ -150,44 +225,83 @@ Note that R starts indexing at 1, not 0 like python. So the first number is our 
 
 Indexing with multiple values. The `:` operator pulls all integers from one value to another.
 
+
+
+
 ```{r}
 v[1:3]
 ```
 
+
+
+
 Indexing a vector with another vector.
+
+
+
 
 ```{r}
 v[-c(1,5,8)]
 ```
 
+
+
+
 Using a logical operator on a vector.
+
+
+
 
 ```{r}
 v < 4
 ```
 
+
+
+
 Subsetting based on a logical vector.
+
+
+
 
 ```{r}
 v[v<4]
 ```
 
+
+
+
 Note that `NA` are retained when subsetting with a logical vector. This is because operations on `NA` yield `NA`, not `FALSE`.
+
+
+
 
 ```{r}
 NA < 4
 ```
 
+
+
+
 A character vector.
+
+
+
 
 ```{r}
 v <- c("aye","nay","nay","aye","aye")
 v
 ```
 
+
+
+
 ### Factors
 
 Factors are how we can define groupings in data. For example, we can define two groups "happy pirate" and "sad pirate". It's simple to convert a character vector into a factor with the `factor` function.
+
+
+
 
 ```{r}
 groupings = c("happy_pirate",
@@ -203,26 +317,50 @@ pirate.factor = factor(groupings)
 pirate.factor
 ```
 
+
+
+
 Just get the levels.
+
+
+
 
 ```{r}
 levels(pirate.factor)
 ```
 
+
+
+
 Get the counts.
+
+
+
 
 ```{r}
 table(pirate.factor)
 ```
 
+
+
+
 Factors automatically take their order as alphabetical. You can change this by defining the levels of your factor.
+
+
+
 
 ```{r}
 pirate.factor = factor(groupings, levels=c("sad_pirate", "happy_pirate"))
 levels(pirate.factor)
 ```
 
+
+
+
 Create a dataset of "coins". Use the groupings to apply the `mean` function with `tapply`. We will cover `tapply` later. You can see now that factors are helpful when you have distinct groups and you would like to apply a function based on group assignments.
+
+
+
 
 ```{r}
 coins = c(21,39,19,16,7,8,25)
@@ -230,9 +368,15 @@ coins = c(21,39,19,16,7,8,25)
 tapply(coins, pirate.factor, mean)
 ```
 
+
+
+
 ### Arrays and matrices
 
 An array is an N-dimensional series of data entries of all the same type. A matrix is a special case of an array that is 2-dimensional and only contains numeric data.
+
+
+
 
 ```{r}
 # 1D array
@@ -255,7 +399,13 @@ dim(x) = c(2,4)
 x
 ```
 
+
+
+
 Indexing.
+
+
+
 
 ```{r}
 # First row
@@ -267,16 +417,28 @@ mat[c(1),]
 mat[,c(2,4)]
 ```
 
+
+
+
 Indexing with a logical vector.
+
+
+
 
 ```{r}
 # Second row
 mat[c(FALSE,TRUE),]
 ```
 
+
+
+
 #### Binding rows and columns
 
 Use `cbind` to add a column of the same dimension as other columns. Use `rbind` to do the same for rows.
+
+
+
 
 ```{r}
 # A matrix
@@ -291,6 +453,9 @@ mat3 = rbind(mat, c(9,10,11,12))
 mat3
 ```
 
+
+
+
 ::: callout-warning
 # Beware data order
 
@@ -301,6 +466,9 @@ Note that `cbind` and `rbind` do not check your data order. If you have one matr
 ### Dataframes
 
 Unlike a matrix, a data frame can contain multiple types of data. Let's create some data.
+
+
+
 
 ```{r}
 # Create vectors of values for our sharks
@@ -316,36 +484,66 @@ species = c("GreatWhite",
             "Tiger")
 ```
 
+
+
+
 Create a data frame from our penguin data.
+
+
+
 
 ```{r}
 shark.df = data.frame(tailfin.length, tailfin.width, species)
 table(shark.df$species)
 ```
 
+
+
+
 Slicing is the same as with a matrix.
+
+
+
 
 ```{r}
 # Which dimension is this, matey?
 shark.df[,2]
 ```
 
+
+
+
 Quick summary of the dataset.
+
+
+
 
 ```{r}
 summary(shark.df)
 ```
 
+
+
+
 Assign some row names.
+
+
+
 
 ```{r}
 rownames(shark.df) = c("p1","p2","p3","p4","p5","p6")
 shark.df
 ```
 
+
+
+
 ### Lists
 
 A list is a collection of objects. It can contain vectors, matrices, dataframes, and other objects of different lengths. It can be a great way to collect together different information. Use double square brackets, `[[]]`, to access elements or you can also use the name of the element if it exists (using the `$` to access).
+
+
+
 
 ```{r}
 # Create a list
@@ -353,7 +551,13 @@ sharkfin_list = list(tailfin.width, tailfin.length, c("GreatWhite", "Bull", "Tig
 sharkfin_list
 ```
 
+
+
+
 The following is the same list, but with names assigned to the elements.
+
+
+
 
 ```{r}
 # Create a list
@@ -371,6 +575,9 @@ sharkfin_list[[2]]
 sharkfin_list$length
 ```
 
+
+
+
 ## Apply function family
 
 The functions `apply()`, `tapply()` and `lapply()` allow you to perform specified functions across array objects.
@@ -379,6 +586,9 @@ The functions `apply()`, `tapply()` and `lapply()` allow you to perform specifie
 -   `tapply()` – similar to apply but pass a factor vector instead of row or column
 -   `lapply()` – simply provide a list and the function to apply to each vector in the list. Result is a list.
 -   `sapply()` – same as `lapply()` but returns result in original data structure
+
+
+
 
 ```{r}
 # A matrix
@@ -399,11 +609,17 @@ groupings = c("happy_pirate", "happy_pirate", "sad_pirate", "sad_pirate")
 tapply(as.numeric(df[1,]), groupings, mean)
 ```
 
+
+
+
 I will leave `lapply()` and `sapply()` for you to learn more about on your own.
 
 ## Reading in data
 
 Read a csv file.
+
+
+
 
 ```{r}
 # Read data file with a header
@@ -412,15 +628,27 @@ pirate_data = read.csv("data/pirate_data1.csv",
   sep = ",")
 ```
 
+
+
+
 What class of object is this?
+
+
+
 
 ```{r}
 class(pirate_data)
 ```
 
+
+
+
 ## Help
 
 Here are some ways to get help.
+
+
+
 
 ```{r}
 # Help docs
@@ -431,3 +659,4 @@ Here are some ways to get help.
 # Any docs associated with the given input, here "summary"
 ??"summary"
 ```
+

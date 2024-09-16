@@ -3511,7 +3511,7 @@ happy_pirate   sad_pirate
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Beware data order with <code>cbind</code> and <code>rbind</code>
+Beware data order
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -3643,7 +3643,7 @@ p6            2.7           5.8      Tiger</code></pre>
 <span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Let&#39;s get the row means</span></span>
 <span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(mat, <span class="dv">1</span>, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 8.075 7.250 9.200 8.700 8.525</code></pre>
+<pre><code>[1]  9.425  9.675  7.375  6.750 11.375</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -3655,7 +3655,7 @@ p6            2.7           5.8      Tiger</code></pre>
 <span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(<span class="fu">as.numeric</span>(df[<span class="dv">1</span>,]), groupings, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>happy_pirate   sad_pirate 
-        3.60        12.55 </code></pre>
+       12.25         6.60 </code></pre>
 </div>
 </div>
 <p>I will leave <code>lapply()</code> and <code>sapply()</code> for you to learn more about on your own.</p>
