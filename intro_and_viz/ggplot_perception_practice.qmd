@@ -16,6 +16,7 @@ knitr:
 library(tidyverse)
 library(gridExtra)
 library(ggplot2)
+library(patchwork)
 ```
 
 ## Introduction
@@ -31,24 +32,28 @@ Let's read in some data.
 ```{r}
 # Read data file
 pirate_data = read.csv("data/pirate_data1.csv",
-  header=T,
+  header=TRUE,
   sep = ",")
 ```
 
-We are attracted to edges in visual media, seeing contrasts and brightness relatively rather than in the absolute. Thus background choices matter - the same color or shade will be perceived differently against a darker background vs. a ligher one. Here we, plot the points against a light grey and dark grey background.
+We are attracted to edges in visual media, seeing contrasts and brightness relatively rather than in the absolute. Thus, background choices matter - the same color or shade will be perceived differently against a darker background vs. a lighter one.
+
+Here, we plot the points against a light grey vs dark grey background. Which one is easier to understand?
 
 ```{r}
 # Use a light grey background
-ggplot(pirate_data,
+p1 <- ggplot(pirate_data,
   mapping=aes(x=x, y=y)) +
   geom_point(size=2) +
   theme(panel.background = element_rect(fill = 'lightgrey'))
 
 # Use a dark grey background
-ggplot(pirate_data,
+p2 <- ggplot(pirate_data,
   mapping=aes(x=x, y=y)) +
   geom_point(size=2) +
   theme(panel.background = element_rect(fill = "#36454F"))
+
+p1+p2
 ```
 
 Introducing colors vs. monochrome may complicate a graph and make it harder to perceive structures.
@@ -57,7 +62,7 @@ Introducing colors vs. monochrome may complicate a graph and make it harder to p
 z = replicate(1, sample(c("black"), dim(pirate_data)[[1]], TRUE))
 pirate_data$z = z
 
-ggplot(pirate_data,
+p3 <- ggplot(pirate_data,
   mapping=aes(x=x, y=y)) +
   geom_point(size=2, colour=z) +
   theme_bw()
@@ -65,10 +70,12 @@ ggplot(pirate_data,
 z = replicate(1, sample(c("blue", "orange", "red", "black", "yellow"), dim(pirate_data)[[1]], TRUE))
 pirate_data$z = z
 
-ggplot(pirate_data,
+p4 <- ggplot(pirate_data,
   mapping=aes(x=x, y=y)) +
   geom_point(size=2, colour=z) +
   theme_bw()
+
+p3+p4
 ```
 
 ## Pop-out
@@ -80,7 +87,7 @@ Let's read in some more data.
 ```{r}
 # Read data file
 pirate_data = read.csv("data/pirate_data2.csv",
-  header=T,
+  header=TRUE,
   sep = ",")
 ```
 
@@ -88,21 +95,22 @@ Now for a little bit of fun.
 
 ```{r}
 # Simple plot with defaults
-p1 = ggplot(pirate_data, aes(x=x, y=y)) +
-  geom_point()
+p5 = ggplot(pirate_data, aes(x=x, y=y)) +
+  geom_point() +
+  theme_bw()
 
 # Create a color vector
 z = replicate(nrow(pirate_data), "black")
 z[pirate_data$y < 300] = "brown"
 
 # Adding point size, color and labels
-p2 = ggplot(pirate_data, aes(x=x, y=y)) +
+p6 = ggplot(pirate_data, aes(x=x, y=y)) +
   geom_point(size=1, colour=z, show.legend = FALSE) +
   labs(x = "X", y = "Y", title = "Set Sail in Color") + 
   theme_bw()
 
 # Create graphic with two plots side-by-side
-grid.arrange(p1, p2, ncol = 2)
+p5 + p6
 ```
 
 Subsample the data because it's really dense.
@@ -133,17 +141,19 @@ Plot two plots on one grid. Which two channels are represented below and which o
 
 ```{r, echo=FALSE}
 # Plot #1 with ggplot2 that uses different shapes
-plot1 = ggplot(data, aes(x=x, y=y, shape=color)) +
+p7 = ggplot(data, aes(x=x, y=y, shape=color)) +
   labs(x = "X", y = "Y", title = "Pop-Out on Shape Channel") + 
-  geom_point(size=3, aes(colour='orange'), show.legend = FALSE)
+  geom_point(size=3, aes(colour='orange'), show.legend = FALSE) +
+  theme_bw()
 
 # Plot #2 with ggplot2 that uses colors
-plot2 = ggplot(data, aes(x=x, y=y, color=color)) +
+p8 = ggplot(data, aes(x=x, y=y, color=color)) +
   labs(x = "X", y = "Y", title = "Pop-Out on Color Channel") + 
-  geom_point(size=3, show.legend = FALSE)
+  geom_point(size=3, show.legend = FALSE) +
+  theme_bw()
 
 # Create graphic with two plots side-by-side
-grid.arrange(plot1, plot2, ncol = 2)
+p7+p8
 ```
 
 ## Interpreting sizes as values
