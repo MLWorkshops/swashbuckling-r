@@ -13,7 +13,7 @@ editor: visual
 
 ## Introduction
 
-This is an introduction to R meant to help anyone new to the language gain familiarity with data types, data structures, the apply functions and reading data. It is not comprehensive, but should serve as a nice reference moving forward.
+This is an introduction to R meant to help anyone new to the language gain familiarity with data types, data structures and reading data. It is not comprehensive, but should serve as a nice reference for this workshop.
 
 This is a Quarto-based document. Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
 
@@ -21,6 +21,7 @@ When you click the **Render** button a document will be generated that includes 
 
 ## Outline
 
+-   Help
 -   Basics
     -   Loading packages
     -   Working directory
@@ -36,11 +37,25 @@ When you click the **Render** button a document will be generated that includes 
     -   `vector`
     -   `factor`
     -   `array` and `matrix`
-    -   `cbind` and `rbind`
     -   `data.frame`
     -   `list`
--   `apply` functions
 -   Read a file
+-   `cbind` and `rbind`
+-   `apply` functions
+
+## Help
+
+Here are some ways to get help.
+
+```{r}
+# Help docs
+?max
+```
+
+```{r}
+# Any docs associated with the given input, here "summary"
+??"summary"
+```
 
 ## Basics
 
@@ -222,7 +237,7 @@ pirate.factor = factor(groupings, levels=c("sad_pirate", "happy_pirate"))
 levels(pirate.factor)
 ```
 
-Create a dataset of "coins". Use the groupings to apply the `mean` function with `tapply`. We will cover `tapply` later. You can see now that factors are helpful when you have distinct groups and you would like to apply a function based on group assignments.
+Create a dataset of "coins". Use the groupings to apply the `mean` function with `tapply`. You can see now that factors are helpful when you have distinct groups and you would like to apply a function based on group assignments.
 
 ```{r}
 coins = c(21,39,19,16,7,8,25)
@@ -274,30 +289,6 @@ Indexing with a logical vector.
 mat[c(FALSE,TRUE),]
 ```
 
-#### Binding rows and columns
-
-Use `cbind` to add a column of the same dimension as other columns. Use `rbind` to do the same for rows.
-
-```{r}
-# A matrix
-mat = matrix(c(1,2,3,4,5,6,7,8),
-             nrow=2,
-             ncol=4)
-
-mat2 = cbind(mat, c(9,10))
-mat2
-
-mat3 = rbind(mat, c(9,10,11,12))
-mat3
-```
-
-::: callout-warning
-# Beware data order
-
-Note that `cbind` and `rbind` do not check your data order. If you have one matrix with columns A, B and one with B, A, `rbind` will incorrectly paste the data from the first columns together and label it A, even though the second matrix's first column is data for B. See the `tidyverse` for binding functions that automatically correct ordering based on row and column names, <https://dplyr.tidyverse.org/reference/bind.html>
-
-:::
-
 ### Dataframes
 
 Unlike a matrix, a data frame can contain multiple types of data. Let's create some data.
@@ -316,7 +307,7 @@ species = c("GreatWhite",
             "Tiger")
 ```
 
-Create a data frame from our penguin data.
+Create a data frame from our shark data.
 
 ```{r}
 shark.df = data.frame(tailfin.length, tailfin.width, species)
@@ -371,6 +362,46 @@ sharkfin_list[[2]]
 sharkfin_list$length
 ```
 
+## Reading in data
+
+Read a csv file.
+
+```{r}
+# Read data file with a header
+pirate_data = read.csv("data/pirate_data1.csv",
+  header=TRUE,
+  sep = ",")
+```
+
+What class of object is this?
+
+```{r}
+class(pirate_data)
+```
+
+### Binding rows and columns
+
+Use `cbind` to add a column of the same dimension as other columns. Use `rbind` to do the same for rows.
+
+```{r}
+# A matrix
+mat = matrix(c(1,2,3,4,5,6,7,8),
+             nrow=2,
+             ncol=4)
+
+mat2 = cbind(mat, c(9,10))
+mat2
+
+mat3 = rbind(mat, c(9,10,11,12))
+mat3
+```
+
+::: callout-warning
+# Beware data order
+
+Note that `cbind` and `rbind` do not check your data order. If you have one matrix with columns A, B and one with B, A, `rbind` will incorrectly paste the data from the first columns together and label it A, even though the second matrix's first column is data for B. See the `tidyverse` for binding functions that automatically correct ordering based on row and column names, <https://dplyr.tidyverse.org/reference/bind.html>
+:::
+
 ## Apply function family
 
 The functions `apply()`, `tapply()` and `lapply()` allow you to perform specified functions across array objects.
@@ -400,34 +431,3 @@ tapply(as.numeric(df[1,]), groupings, mean)
 ```
 
 I will leave `lapply()` and `sapply()` for you to learn more about on your own.
-
-## Reading in data
-
-Read a csv file.
-
-```{r}
-# Read data file with a header
-pirate_data = read.csv("data/pirate_data1.csv",
-  header=TRUE,
-  sep = ",")
-```
-
-What class of object is this?
-
-```{r}
-class(pirate_data)
-```
-
-## Help
-
-Here are some ways to get help.
-
-```{r}
-# Help docs
-?max
-```
-
-```{r}
-# Any docs associated with the given input, here "summary"
-??"summary"
-```
