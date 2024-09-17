@@ -1,0 +1,1111 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
+\definecolor{quarto-callout-color}{HTML}{909090}
+\definecolor{quarto-callout-note-color}{HTML}{0758E5}
+\definecolor{quarto-callout-important-color}{HTML}{CC1914}
+\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
+\definecolor{quarto-callout-tip-color}{HTML}{00A047}
+\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
+\definecolor{quarto-callout-color-frame}{HTML}{acacac}
+\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
+\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
+\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
+\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
+\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={A Short Introduction to R},
+  pdfauthor={Micheleen},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{A Short Introduction to R}
+\author{Micheleen}
+\date{2024-09-15}
+
+\begin{document}
+\maketitle
+
+\renewcommand*\contentsname{Table of contents}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+
+\subsection{Introduction}\label{introduction}
+
+This is an introduction to R meant to help anyone new to the language
+gain familiarity with data types, data structures, the apply functions
+and reading data. It is not comprehensive, but should serve as a nice
+reference moving forward.
+
+This is a Quarto-based document. Quarto enables you to weave together
+content and executable code into a finished document. To learn more
+about Quarto see \url{https://quarto.org}.
+
+When you click the \textbf{Render} button a document will be generated
+that includes both content and the output of embedded code.
+
+\subsection{Outline}\label{outline}
+
+\begin{itemize}
+\tightlist
+\item
+  Basics
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Loading packages
+  \item
+    Working directory
+  \item
+    Environment
+  \item
+    Information on objects
+  \end{itemize}
+\item
+  Data types
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{numeric}
+  \item
+    \texttt{integer}
+  \item
+    \texttt{complex}
+  \item
+    \texttt{character}
+  \item
+    \texttt{logical}
+  \end{itemize}
+\item
+  Data structures
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{vector}
+  \item
+    \texttt{factor}
+  \item
+    \texttt{array} and \texttt{matrix}
+  \item
+    \texttt{cbind} and \texttt{rbind}
+  \item
+    \texttt{data.frame}
+  \item
+    \texttt{list}
+  \end{itemize}
+\item
+  \texttt{apply} functions
+\item
+  Read a file
+\end{itemize}
+
+\subsection{Basics}\label{basics}
+
+To load a package you can use
+\texttt{library(\textless{}package\ name\textgreater{})}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+To check which directory you are in, use the function \texttt{getwd} for
+``get working directory'' (you can also set the working directory with
+\texttt{setwd(\textless{}some\ dir\ path\textgreater{})}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{getwd}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "/Users/kadm/Documents/GitHub/rladies/swashbuckling-r/intro_and_viz"
+\end{verbatim}
+
+List all variables in the current environment (or use the Environment
+panel in RStudio).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \StringTok{"Arrr"}
+\FunctionTok{ls}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "x"
+\end{verbatim}
+
+Get structure and info about an object.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# The iris dataset is part of base R}
+\FunctionTok{str}\NormalTok{(iris)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+'data.frame':   150 obs. of  5 variables:
+ $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+ $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+ $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+ $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+ $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+\end{verbatim}
+
+Get the class of an object.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "character"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(iris)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "data.frame"
+\end{verbatim}
+
+Remove a variable.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rm}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Data Types}\label{data-types}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# numeric}
+\FloatTok{3.14}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 3.14
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# integer (L forces R to not store any decimals)}
+\DecValTok{2}\NormalTok{L}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# complex}
+\DecValTok{7} \SpecialCharTok{+} \DecValTok{2}\NormalTok{i}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 7+2i
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# character or string}
+\StringTok{"Ahoy world!"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Ahoy world!"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# logical or boolean}
+\ConstantTok{TRUE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+If you don't know your data type, you can query it with
+\texttt{class()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(}\FloatTok{3.14}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "numeric"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(}\StringTok{"Ahoy world!"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "character"
+\end{verbatim}
+
+\subsection{Data Structures}\label{data-structures}
+
+\subsubsection{Vectors}\label{vectors}
+
+Use \texttt{c()} to define a vector. Even the number \texttt{1} is a
+vector (equivalent to \texttt{c(1)}). \texttt{c} stands for ``combine''.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{v }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{5}\NormalTok{)}
+\NormalTok{v}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 4 2 3 8 2 2 5
+\end{verbatim}
+
+To get more info on data and data structure, use \texttt{is()} instead
+of \texttt{class()}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(v)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "numeric"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{is}\NormalTok{(v)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "numeric" "vector" 
+\end{verbatim}
+
+Throw in \texttt{NA} values into a vector.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{v }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{2}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\DecValTok{5}\NormalTok{)}
+\NormalTok{v}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  4  2  3  8  2 NA  5
+\end{verbatim}
+
+Reassigning a value in our vector.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{v[}\DecValTok{4}\NormalTok{] }\OtherTok{=} \DecValTok{10}
+\NormalTok{v}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  4  2  3 10  2 NA  5
+\end{verbatim}
+
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-warning-color!10!white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Python users!}, breakable, toprule=.15mm, coltitle=black, opacityback=0, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-warning-color-frame, bottomrule=.15mm, toptitle=1mm, arc=.35mm, titlerule=0mm, rightrule=.15mm, left=2mm, opacitybacktitle=0.6, colback=white]
+
+Note that R starts indexing at 1, not 0 like python. So the first number
+is our vector is accessed with \texttt{v{[}1{]}} in R.
+
+\end{tcolorbox}
+
+Indexing with multiple values. The \texttt{:} operator pulls all
+integers from one value to another.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{v[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 4 2 3
+\end{verbatim}
+
+Indexing a vector with another vector.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{v[}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{8}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  2  3 10 NA  5
+\end{verbatim}
+
+Using a logical operator on a vector.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{v }\SpecialCharTok{\textless{}} \DecValTok{4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE  TRUE  TRUE FALSE  TRUE    NA FALSE
+\end{verbatim}
+
+Subsetting based on a logical vector.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{v[v}\SpecialCharTok{\textless{}}\DecValTok{4}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  2  3  2 NA
+\end{verbatim}
+
+Note that \texttt{NA} are retained when subsetting with a logical
+vector. This is because operations on \texttt{NA} yield \texttt{NA}, not
+\texttt{FALSE}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ConstantTok{NA} \SpecialCharTok{\textless{}} \DecValTok{4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] NA
+\end{verbatim}
+
+A character vector.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{v }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"aye"}\NormalTok{,}\StringTok{"nay"}\NormalTok{,}\StringTok{"nay"}\NormalTok{,}\StringTok{"aye"}\NormalTok{,}\StringTok{"aye"}\NormalTok{)}
+\NormalTok{v}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "aye" "nay" "nay" "aye" "aye"
+\end{verbatim}
+
+\subsubsection{Factors}\label{factors}
+
+Factors are how we can define groupings in data. For example, we can
+define two groups ``happy pirate'' and ``sad pirate''. It's simple to
+convert a character vector into a factor with the \texttt{factor}
+function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{groupings }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"happy\_pirate"}\NormalTok{,}
+              \StringTok{"happy\_pirate"}\NormalTok{,}
+              \StringTok{"sad\_pirate"}\NormalTok{,}
+              \StringTok{"happy\_pirate"}\NormalTok{,}
+              \StringTok{"sad\_pirate"}\NormalTok{,}
+              \StringTok{"sad\_pirate"}\NormalTok{,}
+              \StringTok{"happy\_pirate"}\NormalTok{)}
+
+\NormalTok{pirate.factor }\OtherTok{=} \FunctionTok{factor}\NormalTok{(groupings)}
+
+\NormalTok{pirate.factor}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] happy_pirate happy_pirate sad_pirate   happy_pirate sad_pirate  
+[6] sad_pirate   happy_pirate
+Levels: happy_pirate sad_pirate
+\end{verbatim}
+
+Just get the levels.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{levels}\NormalTok{(pirate.factor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "happy_pirate" "sad_pirate"  
+\end{verbatim}
+
+Get the counts.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(pirate.factor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+pirate.factor
+happy_pirate   sad_pirate 
+           4            3 
+\end{verbatim}
+
+Factors automatically take their order as alphabetical. You can change
+this by defining the levels of your factor.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pirate.factor }\OtherTok{=} \FunctionTok{factor}\NormalTok{(groupings, }\AttributeTok{levels=}\FunctionTok{c}\NormalTok{(}\StringTok{"sad\_pirate"}\NormalTok{, }\StringTok{"happy\_pirate"}\NormalTok{))}
+\FunctionTok{levels}\NormalTok{(pirate.factor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "sad_pirate"   "happy_pirate"
+\end{verbatim}
+
+Create a dataset of ``coins''. Use the groupings to apply the
+\texttt{mean} function with \texttt{tapply}. We will cover
+\texttt{tapply} later. You can see now that factors are helpful when you
+have distinct groups and you would like to apply a function based on
+group assignments.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{coins }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\DecValTok{21}\NormalTok{,}\DecValTok{39}\NormalTok{,}\DecValTok{19}\NormalTok{,}\DecValTok{16}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{25}\NormalTok{)}
+
+\FunctionTok{tapply}\NormalTok{(coins, pirate.factor, mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  sad_pirate happy_pirate 
+    11.33333     25.25000 
+\end{verbatim}
+
+\subsubsection{Arrays and matrices}\label{arrays-and-matrices}
+
+An array is an N-dimensional series of data entries of all the same
+type. A matrix is a special case of an array that is 2-dimensional and
+only contains numeric data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 1D array}
+\NormalTok{arr1 }\OtherTok{=} \FunctionTok{array}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{), }\AttributeTok{dim=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{))}
+\NormalTok{arr1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1 2 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 2D array}
+\NormalTok{arr2 }\OtherTok{=} \FunctionTok{array}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{), }\AttributeTok{dim=}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{))}
+\NormalTok{arr2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2] [,3] [,4]
+[1,]    1    3    5    7
+[2,]    2    4    6    8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# The equivalent matrix for the 2D array above}
+\NormalTok{mat }\OtherTok{=} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{),}
+             \AttributeTok{nrow=}\DecValTok{2}\NormalTok{,}
+             \AttributeTok{ncol=}\DecValTok{4}\NormalTok{)}
+\NormalTok{mat}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2] [,3] [,4]
+[1,]    1    3    5    7
+[2,]    2    4    6    8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# A third way to create the same data structure}
+\NormalTok{x }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{)}
+\FunctionTok{dim}\NormalTok{(x) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{)}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2] [,3] [,4]
+[1,]    1    3    5    7
+[2,]    2    4    6    8
+\end{verbatim}
+
+Indexing.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# First row}
+\NormalTok{mat[}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{),]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1 3 5 7
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Second and fourth column}
+\NormalTok{mat[,}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2]
+[1,]    3    7
+[2,]    4    8
+\end{verbatim}
+
+Indexing with a logical vector.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Second row}
+\NormalTok{mat[}\FunctionTok{c}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{,}\ConstantTok{TRUE}\NormalTok{),]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2 4 6 8
+\end{verbatim}
+
+\paragraph{Binding rows and columns}\label{binding-rows-and-columns}
+
+Use \texttt{cbind} to add a column of the same dimension as other
+columns. Use \texttt{rbind} to do the same for rows.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# A matrix}
+\NormalTok{mat }\OtherTok{=} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{),}
+             \AttributeTok{nrow=}\DecValTok{2}\NormalTok{,}
+             \AttributeTok{ncol=}\DecValTok{4}\NormalTok{)}
+
+\NormalTok{mat2 }\OtherTok{=} \FunctionTok{cbind}\NormalTok{(mat, }\FunctionTok{c}\NormalTok{(}\DecValTok{9}\NormalTok{,}\DecValTok{10}\NormalTok{))}
+\NormalTok{mat2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    3    5    7    9
+[2,]    2    4    6    8   10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mat3 }\OtherTok{=} \FunctionTok{rbind}\NormalTok{(mat, }\FunctionTok{c}\NormalTok{(}\DecValTok{9}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{11}\NormalTok{,}\DecValTok{12}\NormalTok{))}
+\NormalTok{mat3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2] [,3] [,4]
+[1,]    1    3    5    7
+[2,]    2    4    6    8
+[3,]    9   10   11   12
+\end{verbatim}
+
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-warning-color!10!white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Beware data order}, breakable, toprule=.15mm, coltitle=black, opacityback=0, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-warning-color-frame, bottomrule=.15mm, toptitle=1mm, arc=.35mm, titlerule=0mm, rightrule=.15mm, left=2mm, opacitybacktitle=0.6, colback=white]
+
+Note that \texttt{cbind} and \texttt{rbind} do not check your data
+order. If you have one matrix with columns A, B and one with B, A,
+\texttt{rbind} will incorrectly paste the data from the first columns
+together and label it A, even though the second matrix's first column is
+data for B. See the \texttt{tidyverse} for binding functions that
+automatically correct ordering based on row and column names,
+\url{https://dplyr.tidyverse.org/reference/bind.html}
+
+\end{tcolorbox}
+
+\subsubsection{Dataframes}\label{dataframes}
+
+Unlike a matrix, a data frame can contain multiple types of data. Let's
+create some data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create vectors of values for our sharks}
+\NormalTok{tailfin.length}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\FloatTok{3.5}\NormalTok{,}\FloatTok{3.0}\NormalTok{,}\FloatTok{3.2}\NormalTok{,}\FloatTok{3.2}\NormalTok{,}\FloatTok{3.3}\NormalTok{,}\FloatTok{2.7}\NormalTok{)}
+\NormalTok{tailfin.width}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\FloatTok{5.1}\NormalTok{,}\FloatTok{4.9}\NormalTok{,}\FloatTok{7.0}\NormalTok{,}\FloatTok{6.4}\NormalTok{,}\FloatTok{6.3}\NormalTok{,}\FloatTok{5.8}\NormalTok{)}
+
+\CommentTok{\# Create a vector of shark species (reasons not to walk the plank, matey!)}
+\NormalTok{species }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"GreatWhite"}\NormalTok{,}
+            \StringTok{"GreatWhite"}\NormalTok{,}
+            \StringTok{"Bull"}\NormalTok{,}
+            \StringTok{"Bull"}\NormalTok{,}
+            \StringTok{"Tiger"}\NormalTok{,}
+            \StringTok{"Tiger"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Create a data frame from our penguin data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{shark.df }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(tailfin.length, tailfin.width, species)}
+\FunctionTok{table}\NormalTok{(shark.df}\SpecialCharTok{$}\NormalTok{species)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+      Bull GreatWhite      Tiger 
+         2          2          2 
+\end{verbatim}
+
+Slicing is the same as with a matrix.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Which dimension is this, matey?}
+\NormalTok{shark.df[,}\DecValTok{2}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 5.1 4.9 7.0 6.4 6.3 5.8
+\end{verbatim}
+
+Quick summary of the dataset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(shark.df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ tailfin.length  tailfin.width     species         
+ Min.   :2.700   Min.   :4.900   Length:6          
+ 1st Qu.:3.050   1st Qu.:5.275   Class :character  
+ Median :3.200   Median :6.050   Mode  :character  
+ Mean   :3.150   Mean   :5.917                     
+ 3rd Qu.:3.275   3rd Qu.:6.375                     
+ Max.   :3.500   Max.   :7.000                     
+\end{verbatim}
+
+Assign some row names.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rownames}\NormalTok{(shark.df) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"p1"}\NormalTok{,}\StringTok{"p2"}\NormalTok{,}\StringTok{"p3"}\NormalTok{,}\StringTok{"p4"}\NormalTok{,}\StringTok{"p5"}\NormalTok{,}\StringTok{"p6"}\NormalTok{)}
+\NormalTok{shark.df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   tailfin.length tailfin.width    species
+p1            3.5           5.1 GreatWhite
+p2            3.0           4.9 GreatWhite
+p3            3.2           7.0       Bull
+p4            3.2           6.4       Bull
+p5            3.3           6.3      Tiger
+p6            2.7           5.8      Tiger
+\end{verbatim}
+
+\subsubsection{Lists}\label{lists}
+
+A list is a collection of objects. It can contain vectors, matrices,
+dataframes, and other objects of different lengths. It can be a great
+way to collect together different information. Use double square
+brackets, \texttt{{[}{[}{]}{]}}, to access elements or you can also use
+the name of the element if it exists (using the \texttt{\$} to access).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create a list}
+\NormalTok{sharkfin\_list }\OtherTok{=} \FunctionTok{list}\NormalTok{(tailfin.width, tailfin.length, }\FunctionTok{c}\NormalTok{(}\StringTok{"GreatWhite"}\NormalTok{, }\StringTok{"Bull"}\NormalTok{, }\StringTok{"Tiger"}\NormalTok{))}
+\NormalTok{sharkfin\_list}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[[1]]
+[1] 5.1 4.9 7.0 6.4 6.3 5.8
+
+[[2]]
+[1] 3.5 3.0 3.2 3.2 3.3 2.7
+
+[[3]]
+[1] "GreatWhite" "Bull"       "Tiger"     
+\end{verbatim}
+
+The following is the same list, but with names assigned to the elements.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create a list}
+\NormalTok{sharkfin\_list }\OtherTok{=} \FunctionTok{list}\NormalTok{(}\AttributeTok{width=}\NormalTok{tailfin.width,}
+                     \AttributeTok{length=}\NormalTok{tailfin.length,}
+                     \AttributeTok{species=}\FunctionTok{c}\NormalTok{(}\StringTok{"GreatWhite"}\NormalTok{, }\StringTok{"Bull"}\NormalTok{, }\StringTok{"Tiger"}\NormalTok{),}
+                     \AttributeTok{numberOfBites=}\DecValTok{15}\NormalTok{)}
+\CommentTok{\# Get list names}
+\FunctionTok{names}\NormalTok{(sharkfin\_list)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "width"         "length"        "species"       "numberOfBites"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Access with [[]]}
+\NormalTok{sharkfin\_list[[}\DecValTok{2}\NormalTok{]]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 3.5 3.0 3.2 3.2 3.3 2.7
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Access with $}
+\NormalTok{sharkfin\_list}\SpecialCharTok{$}\NormalTok{length}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 3.5 3.0 3.2 3.2 3.3 2.7
+\end{verbatim}
+
+\subsection{Apply function family}\label{apply-function-family}
+
+The functions \texttt{apply()}, \texttt{tapply()} and \texttt{lapply()}
+allow you to perform specified functions across array objects.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{apply()} -- first provide the array then whether to apply the
+  function by row (1), column (2) or both (c(1,2)), finally the
+  function.
+\item
+  \texttt{tapply()} -- similar to apply but pass a factor vector instead
+  of row or column
+\item
+  \texttt{lapply()} -- simply provide a list and the function to apply
+  to each vector in the list. Result is a list.
+\item
+  \texttt{sapply()} -- same as \texttt{lapply()} but returns result in
+  original data structure
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# A matrix}
+\NormalTok{mat }\OtherTok{=} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{sample}\NormalTok{(}\DecValTok{20}\SpecialCharTok{:}\DecValTok{160}\NormalTok{, }\DecValTok{20}\NormalTok{, }\AttributeTok{replace=}\NormalTok{T)}\SpecialCharTok{/}\DecValTok{10}\NormalTok{,}
+             \AttributeTok{ncol=}\DecValTok{4}\NormalTok{,}
+             \AttributeTok{nrow=}\DecValTok{5}\NormalTok{)}
+
+\CommentTok{\# Let\textquotesingle{}s get the row means}
+\FunctionTok{apply}\NormalTok{(mat, }\DecValTok{1}\NormalTok{, mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  8.050  8.225 10.275 11.925 12.600
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Make into a data frame}
+\NormalTok{df }\OtherTok{=} \FunctionTok{as.data.frame}\NormalTok{(mat)}
+\NormalTok{groupings }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"happy\_pirate"}\NormalTok{, }\StringTok{"happy\_pirate"}\NormalTok{, }\StringTok{"sad\_pirate"}\NormalTok{, }\StringTok{"sad\_pirate"}\NormalTok{)}
+
+\CommentTok{\# Get the mean for the first row by the groups}
+\FunctionTok{tapply}\NormalTok{(}\FunctionTok{as.numeric}\NormalTok{(df[}\DecValTok{1}\NormalTok{,]), groupings, mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+happy_pirate   sad_pirate 
+         6.5          9.6 
+\end{verbatim}
+
+I will leave \texttt{lapply()} and \texttt{sapply()} for you to learn
+more about on your own.
+
+\subsection{Reading in data}\label{reading-in-data}
+
+Read a csv file.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Read data file with a header}
+\NormalTok{pirate\_data }\OtherTok{=} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/pirate\_data1.csv"}\NormalTok{,}
+  \AttributeTok{header=}\ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{sep =} \StringTok{","}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+What class of object is this?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(pirate\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "data.frame"
+\end{verbatim}
+
+\subsection{Help}\label{help}
+
+Here are some ways to get help.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Help docs}
+\NormalTok{?max}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Any docs associated with the given input, here "summary"}
+\NormalTok{??}\StringTok{"summary"}
+\end{Highlighting}
+\end{Shaded}
+
+
+
+
+
+\end{document}

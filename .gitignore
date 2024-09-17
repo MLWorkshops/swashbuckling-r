@@ -4,6 +4,9 @@
 
 # User files
 .DS_Store
+R/
+.cache/
+*.pptx
 
 # History files
 .Rhistory
