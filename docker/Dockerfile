@@ -37,7 +37,7 @@ RUN /rocker_scripts/install_tidyverse.sh
 RUN Rscript -e "install.packages(c('rmarkdown', 'workflowr', 'devtools'));"
 RUN Rscript -e "install.packages(c('doParallel', 'foreach', 'Rdpack', 'gridExtra'));"
 RUN Rscript -e "install.packages(c('ggrepel', 'ggbeeswarm', 'GGally', 'patchwork'));"
-RUN Rscript -e "install.packages(c('tidytext', 'syuzhet'));"
+RUN Rscript -e "install.packages(c('tidytext', 'syuzhet', 'tm'));"
 RUN Rscript -e "install.packages('BiocManager');"
 RUN Rscript -e "BiocManager::install(version = '${bioc_ver}');"
 RUN Rscript -e "BiocManager::install('limma');"
