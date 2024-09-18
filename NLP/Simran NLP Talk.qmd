@@ -1,0 +1,194 @@
+---
+title: "RDay Talk NLP"
+format: html
+---
+
+```{r}
+# Install packages (run if not already installed)
+install.packages(c("tidytext", "dplyr", "ggplot2", "syuzhet"))
+
+# Load packages
+
+library(tidytext)
+library(dplyr)
+library(ggplot2)
+library(syuzhet)
+
+```
+
+------------------------------------------------------------------------
+
+## NLP in R
+
+## ![](rday1.png)
+
+![](rday2.png)
+
+![](rday3.png)
+
+## Loading Text for NLP
+
+```{r}
+# Simulated text data
+text_data <- data.frame(
+  text = c(
+    "Ahoy, mateys! We set sailing at dawn.The Black Pearl is the fastest ship in the Caribbean.",
+     "No treasure is too big for Captain Jack Sparrow!",
+    "The sea was calm, but a storm is always brewing.",
+    "Savvy, you best start believing in ghost stories."
+  ),
+  stringsAsFactors = FALSE
+)
+
+# View the sample text data
+print(text_data)
+
+
+```
+
+![](rday4.png)
+
+```{r}
+# Install the 'tm' package if not already installed
+install.packages("tm")
+
+# Load the 'tm' package
+library(tm)
+
+```
+
+**Text Pre-processing**
+
+-   Convert text to lower-case
+
+-   Remove punctuation
+
+-   Remove numbers
+
+-   Remove stop words
+
+```{r}
+# Text Pre-processing with corrections
+clean_text <- text_data %>%
+  mutate(text = tolower(text)) %>%  # Lowercase
+  mutate(text = removePunctuation(text)) %>%  # Remove punctuation
+  mutate(text = removeNumbers(text)) %>%  # Remove numbers
+  mutate(text = removeWords(text, stopwords("en")))  # Remove stopwords
+
+# View cleaned text
+print(clean_text)
+
+```
+
+**Tokenize the text**
+
+```{r}
+# Tokenization
+tokenized_data <- text_data %>%
+  unnest_tokens(word, text)
+
+# View cleaned text data
+print(tokenized_data)
+
+```
+
+**Removing the stop words**
+
+```{r}
+# Stopword Removal
+data("stop_words")
+cleaned_data <- tokenized_data %>%
+  anti_join(stop_words)
+
+# View cleaned text data
+print(cleaned_data)
+```
+
+![](rday5.png)
+
+![](rday6.png)
+
+**Using NRC Emotion Lexicon to extract sentiments and emotions from text**
+
+```{r}
+# Get emotion scores
+emotion_scores <- get_nrc_sentiment(text_data$text)
+
+# Combine emotion scores with the original text
+text_emotions <- cbind(text_data, emotion_scores)
+
+# View the combined data
+print(text_emotions)
+
+```
+
+**Visualizing the Data**
+
+```{r}
+# Summing up the emotion scores
+emotion_totals <- colSums(emotion_scores[, 1:8])
+
+# Convert to a data frame
+emotion_df <- data.frame(
+  emotion = names(emotion_totals),
+  count = as.numeric(emotion_totals)
+)
+
+# View the emotion data frame
+print(emotion_df)
+
+```
+
+```{r}
+# Order emotions to match Plutchik's model (if desired)
+emotion_order <- c("joy", "trust", "fear", "surprise", "sadness", "disgust", "anger", "anticipation")
+emotion_df$emotion <- factor(emotion_df$emotion, levels = emotion_order)
+
+# Calculate percentages for the chart
+emotion_df <- emotion_df %>%
+  arrange(emotion) %>%
+  mutate(percentage = count / sum(count) * 100)
+
+# Plotting
+ggplot(emotion_df, aes(x = emotion, y = percentage, fill = emotion)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar() +
+  theme_minimal() +
+  labs(title = "Emotion Distribution Approximation of Plutchik's Wheel",
+       x = "",
+       y = "Percentage") +
+  theme(axis.text.y = element_blank(),
+        axis.ticks = element_blank(),
+        panel.grid = element_blank(),
+        legend.position = "none")
+
+```
+
+**Plotting the Sentiment Data**
+
+```{r}
+# Select only positive and negative columns for plotting
+sentiment_data <- text_emotions %>%
+  select(text, positive, negative)
+
+# Add an index for each text to make plotting easier
+sentiment_data <- sentiment_data %>%
+  mutate(text_index = row_number())
+
+print(sentiment_data)
+```
+
+```{r}
+# Reshape the data for plotting using tidytext's gather-like operation
+sentiment_long <- sentiment_data %>%
+  tidyr::pivot_longer(cols = c(positive, negative), names_to = "sentiment", values_to = "score")
+
+# Plot the sentiment scores using ggplot2
+ggplot(sentiment_long, aes(x = factor(text_index), y = score, fill = sentiment)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  ggtitle("Positive and Negative Sentiment Scores per Text") +
+  xlab("Text Index") +
+  ylab("Sentiment Score") +
+  scale_fill_manual(values = c("positive" = "green", "negative" = "red")) +
+  theme_minimal()
+```
