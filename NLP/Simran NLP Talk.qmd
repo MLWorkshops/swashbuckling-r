@@ -1,11 +1,18 @@
 ---
 title: "RDay Talk NLP"
-format: html
+date: today
+format:
+  html:
+    toc: true
+    self-contained: true
+  pdf:
+    toc: true
+editor: visual
 ---
 
 ```{r}
-# Install packages (run if not already installed)
-install.packages(c("tidytext", "dplyr", "ggplot2", "syuzhet"))
+# Uncomment and run to install packages (run if not already installed)
+# install.packages(c("tidytext", "dplyr", "ggplot2", "syuzhet"))
 
 # Load packages
 
@@ -49,8 +56,8 @@ print(text_data)
 ![](rday4.png)
 
 ```{r}
-# Install the 'tm' package if not already installed
-install.packages("tm")
+# Uncomment and run to install the 'tm' package if not already installed
+# install.packages("tm")
 
 # Load the 'tm' package
 library(tm)
@@ -189,6 +196,6 @@ ggplot(sentiment_long, aes(x = factor(text_index), y = score, fill = sentiment))
   ggtitle("Positive and Negative Sentiment Scores per Text") +
   xlab("Text Index") +
   ylab("Sentiment Score") +
-  scale_fill_manual(values = c("positive" = "green", "negative" = "red")) +
+  scale_fill_manual(values = c("positive" = "blue", "negative" = "red")) +
   theme_minimal()
 ```
