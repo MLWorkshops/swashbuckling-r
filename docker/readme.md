@@ -20,34 +20,6 @@ This image is based on Dave Tang's work highlighted in his blog post [Running RS
 
 - Docker for your platform (on Windows and Mac use [Docker Desktop](https://www.docker.com/products/docker-desktop/))
 
-## Quickstart
-
-This image can be run as a container on Linux (x86_64/amd64), Apple silicon, Apple Intel or Windows 11 machines with the proper setup of Docker.
-
-Important: run the following commands from a project folder to which you'd like access from the container such as the base of this repo.
-
-To try this project on Linux ARM64 (e.g., on Apple Silicon+macOS) or Linux AMD64 (e.g., on Linux x86_64 machines), use the following command and pre-built image.
-
-```
-docker run --name rstudio_server -d -p 8989:8787 -v $PWD:/home/rstudio -e PASSWORD=password  -t rheartpython/swashbuckling-r
-```
-
-To try on Intel-based Macs use the following command.
-
-```
-docker run --platform=linux/amd64 --name rstudio_server -d -p 8989:8787 -v $PWD:/home/rstudio -e PASSWORD=password  -t rheartpython/swashbuckling-r
-```
-
-To run on Windows, the command in Command Prompt will be similar except for the `-v $PWD:/home/rstudio` part which will use Windows environment variable syntax instead (e.g., `-v %CD%:/home/rstudio`), thus the Windows 11 command is as follows in Command Prompt.
-
-```
-docker run --name rstudio_server -d -p 8989:8787 -v %CD%:/home/rstudio -e PASSWORD=password  -t rheartpython/swashbuckling-r
-```
-
-Log in to RStudio (at [http://localhost:8989/](http://localhost:8989/)) with username "rstudio" and the password that you gave above and start having fun.
-
-To build or modify and build your own image, keep reading.
-
 ## Build Image
 
 The following instructions are for _building_ on Apple silicon (tested on an M3).
@@ -70,7 +42,7 @@ docker buildx build --platform linux/amd64,linux/arm64 --rm=true -t <username>/s
 
 Note, the base image does not have a build for darwin/amd64, but can still work when using the flag `--platform=linux/amd64` on Intel-based Macs.
 
-Run the image as above in the Quickstart section.
+Run the image as above in the Quickstart section on the main repo README.md.
 
 
 ## Stop Container and Clean Up
